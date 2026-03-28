@@ -1,36 +1,64 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🛒 Desafio — Mini-Ecommerce
 
-## Getting Started
+> Uma jornada em duas fases para entender quando e por que migrar de `useState` para `useReducer`.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## Fase 1 — O Básico com `useState`
+
+Crie um componente onde o usuário pode adicionar itens a uma lista.
+
+### Estrutura do estado
+```js
+[{ id, nome, preco }]
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### O que implementar
+- Um botão **"Adicionar Camiseta (R$ 50)"** que insere o objeto no array
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Requisito obrigatório
+Use sempre a **forma funcional** do setter:
+```js
+setCart(prev => [...prev, newItem])
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## Fase 2 — A Complexidade com `useReducer`
 
-To learn more about Next.js, take a look at the following resources:
+As coisas ficaram sérias. O carrinho agora precisa de mais lógica e o `useState` começa a ficar bagunçado. **Migre toda a lógica para um `useReducer`.**
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Ações que o Reducer deve gerenciar
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+| Ação | Comportamento |
+|------|---------------|
+| `ADD_ITEM` | Adiciona um produto. Se já existir no carrinho, **aumenta apenas a quantidade** (não duplica a linha) |
+| `REMOVE_ITEM` | Remove o item pelo ID |
+| `UPDATE_QUANTITY` | Aumenta ou diminui a quantidade de um item específico |
+| `CLEAR_CART` | Limpa todo o carrinho |
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Por que fazer essa migração?
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+| Característica | Com `useState` | Com `useReducer` |
+|---|---|---|
+| **Onde fica a lógica?** | Dentro das funções do componente | Fora do componente (na função reducer) |
+| **Clareza** | Ótimo para valores simples (on/off) | Ótimo para estados que dependem de vários fatores |
+| **Testabilidade** | Difícil de testar a lógica isolada | Fácil, pois o reducer é uma "função pura" (JS puro) |
+
+---
+
+## 📋 Script de Estudo — O que observar
+
+### 1. Imutabilidade
+No `useReducer`, garanta que você está **retornando um novo objeto de estado**, nunca alterando o `state` antigo diretamente.
+
+### 2. Dispatch
+Observe como o componente fica mais limpo, apenas disparando ações:
+```js
+dispatch({ type: 'ADD_ITEM', payload: produto })
+```
+
+### 3. Payload
+O `payload` é o **"pacote de dados"** enviado junto com o tipo da ação — é por ele que o reducer sabe o que fazer.
