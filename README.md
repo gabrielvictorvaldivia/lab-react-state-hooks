@@ -61,4 +61,8 @@ dispatch({ type: 'ADD_ITEM', payload: produto })
 ```
 
 ### 3. Payload
+<<<<<<< HEAD
 O `payload` é o **"pacote de dados"** enviado junto com o tipo da ação — é por ele que o reducer sabe o que fazer.
+=======
+O `payload` é o **"pacote de dados"** enviado junto com o tipo da ação — é por ele que o reducer sabe o que fazer.
+>>>>>>> 7b99db52f18c38ca56a59738767ce2ba1003d490
