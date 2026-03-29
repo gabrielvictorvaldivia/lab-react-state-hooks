@@ -113,22 +113,13 @@ export default function Cart({items}: State) {
                         <p className="text-sm text-gray-500 font-medium">{state.items.length} Items</p>
                     </div>
                     {/* Botão de Adicionar (Usando sua lógica original, mas com estilo moderno) */}
-                    <button
-                        onClick={() => {
-                            const id = 1774743136000
-                            console.log(id)
-                            return dispatch(
-                                {
-                                    type: 'ADD_ITEM',
-                                    payload: {id: id, name: "Premium Leather Wallet", price: 50.00}
-                                }
-                            )
-                        }}
-                        className="bg-blue-600 text-white rounded-full px-6 py-2.5 font-medium hover:bg-blue-700 transition duration-150 flex items-center gap-2 shadow-sm"
-                    >
-                        <span>Add something that costs $50</span>
-                        <span className="text-lg">+</span>
-                    </button>
+                    <ActionButton onClick={() => dispatch(
+                        {
+                            type: 'ADD_ITEM',
+                            payload: {id: 1774743136000, name: "Premium Leather Wallet", price: 50.00}
+                        }
+                    )
+                    } text={"Add something that costs $50"}/>
                 </div>
 
                 {/* LISTA DE ITENS */}
